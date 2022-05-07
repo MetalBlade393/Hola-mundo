@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>.</title>
+     <link rel='stylesheet' href='/stylesheets/style.css'>
+  </head>
+  <body>
+     <div>
+         <img src="/images/foto.png" alt="2x2" width="120px" height="120px"/>
+         <h1>Javier Antonio Leal Pino</h1>
+         <p><span>Dirección:</span> Municipio Juan German Roscio, Parroquia San Juan, Av. Principal Acosta Carles, Residencias La Güaiquera, calle 1, casa #4</p>
+         <p><span>Número de telefono:</span> +58-426-6497560</p>
+         <fieldset>
+             <legend>Datos Personales:</legend>
+             <ul>
+                 <li><span>Fecha de nacimiento:</span> 12/03/2003</li>
+                 <li><span>Cedula de identidad:</span> V-30.045.707</li>
+                 <li><span>Correo electronico:</span> MetalBlade393@hotmail.com</li>
+             </ul>
+         </fieldset>
+         <fieldset>
+             <legend>Formación Academica:</legend>
+             <ul>
+                 <li><span>Educación Inicial:</span> 1er - 3er nivel Centro de Educación Inicial "Base Aragua" (2006-2009).</li>
+                 <li><span>Educación Primaria:</span> 1er - 4to grado Unidad Educativa Colegio "Los Ángeles" (2009-2013).</li>
+                 <li><span>Educación Primaria:</span> 5to - 6to grado Unidad Educativa Colegio "Dr. Arístides Rojas" (2014-2015).</li>
+                 <li><span>Educación Secundaria:</span> 1er - 5to año Unidad Educativa Colegio "Dr. José María Vargas" (2015-2020).</li>
+             </ul>
+         </fieldset>
+         <fieldset>
+             <legend>Experiencia Laboral:</legend>
+             <ul>
+                 <li><span>Programador junior</span> Inversiones CORPERCA c.a.</li>
+             </ul>
+         </fieldset>
+         <fieldset>
+             <legend>Mis Redes sociales:</legend>
+             <ul>
+                 <li><span>Facebook:</span><a href="https://www.facebook.com/javierantonio.lealpino"> https://www.facebook.com/javierantonio.lealpino</a></li>
+                 <li><span>Twitter:</span><a href="https://twitter.com/Metal_Blade393"> https://twitter.com/Metal_Blade393</a></li>
+                 <li><span>Instagram:</span><a href="https://www.instagram.com/metalblade_dubs.n.anything/?hl=es"> https://www.instagram.com/metalblade_dubs.n.anything/?hl=es</a></li>
+             </ul>
+         </fieldset>
+         <fieldset>
+             <legend>Habilidades y Destrezas:</legend>
+             <ul>
+                 <li>Manejo de programas Office: Word - Excel - Powerpoint</li>
+                 <li>Manejo de lenguajes de programación (Nivel básico - intermedio): Javascript - PHP - HTML - CSS</li>
+                 <li>Experiencia en el manejo de Apps para la creación de medios audiovisuales</li>
+             </ul>
+         </fieldset>
+         <fieldset>
+             <legend>Otros datos de interes:</legend>
+             <ul>
+                 <li>Trabajador responsable, eficiente y eficaz capaz de aprender y aplicar rápidamente las nuevas tecnologías</li>
+                 <li>Dominio del inglés básico - intermedio</li>
+             </ul>
+         </fieldset>
+     </div>
+    <form method='post'action='/' class="form">
+        <div class="form__container">
+            <h2 class="form__title">Contáctame</h2>
+            <input class="form__input" name='email' type="email" placeholder="Ingrese su Email" value="<%= ct.email%>" required="true" id="email">
+            <input class="form__input" name='nombre' type="text"  placeholder="Ingrese su Nombre" value="<%= ct.nombre%>" required="true" id="nombre">
+            <input class="form__input form__input--message" name='comentario' type="text" placeholder="Comentario" value="<%= ct.comentario%>" required="true" id="comentario">
+            <input type="hidden" value="<%= ct.ip%>"/>
+            <input type="hidden" value="<%= ct.fecha%>">
+            <input type="submit" class="form__cta" value="Enviar">
+        </div>
+    </form> 
+  </body>
+</html>
