@@ -60,16 +60,25 @@
              </ul>
          </fieldset>
      </div>
-    <form method='post'action='/' class="form">
-        <div class="form__container">
-            <h2 class="form__title">Contáctame</h2>
-            <input class="form__input" name='email' type="email" placeholder="Ingrese su Email" value="<%= ct.email%>" required="true" id="email">
-            <input class="form__input" name='nombre' type="text"  placeholder="Ingrese su Nombre" value="<%= ct.nombre%>" required="true" id="nombre">
-            <input class="form__input form__input--message" name='comentario' type="text" placeholder="Comentario" value="<%= ct.comentario%>" required="true" id="comentario">
-            <input type="hidden" value="<%= ct.ip%>"/>
-            <input type="hidden" value="<%= ct.fecha%>">
-            <input type="submit" class="form__cta" value="Enviar">
-        </div>
-    </form> 
+     <form class="form" action="/" method="POST">
+        <h2>Contacto</h2>
+        <p type="Nombre:">
+            <input name="nombre" placeholder="indique su nombre completo..." value="<%= tarea.nombre%>">
+        </p>
+
+        <p type="Email:">
+            <input name="email" placeholder="indique su Email..." value="<%= tarea.email%>">
+        </p>
+
+        <p type="Comentario:">
+            <input name="comentario" placeholder="Dejenos su comentario..." value="<%= tarea.comentario%>">
+        </p>
+            <button type="submit">Enviar mensaje</button>
+            <input type="hidden" name="ip" value="<%= tarea.ip%>"/>
+            <input type="hidden" name="fecha" value="<%= tarea.fecha%>">
+            
+                <span class="fa fa-phone"></span> 0416-3098826
+                <span class="fa fa-envelope-o"></span> alejrpl413x@gmail.com
+    <form>
   </body>
 </html>
