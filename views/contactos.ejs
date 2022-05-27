@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='/stylesheets/style.css'>
+    <link rel='index' href='/views/index.ejs'>
+    <title>Contactos</title>
+</head>
+<body>
+    <div class="form__contacts">
+      <div class="form__title2"><h2>Contactos</h2></div>
+        <div class="table">
+          <div class="form__container">
+            <table>
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Comentario</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>IP</th>
+                    <th>Pais</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <% for (const obtener of tarea) { %>
+                  <tr>
+                    <th><%= obtener.nombre%></th>
+                    <td><%= obtener.email%></td>
+                    <td><%= obtener.comentario%></td>
+                    <td><%= clientData.date%></td>
+                    <td><%= clientData.hour%></td>
+                    <td><%= clientData.ipaddress%></td>
+                    <td><%= clientData.country%></td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+           </div>
+        </div>
+    </div>
+</body>
+</html>
