@@ -16,7 +16,7 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
-    "node-fetch": "^3.2.4",
+    "node-fetch": "^2.6.7",
     "nodemailer": "^6.7.5",
     "sqlite3": "^5.0.8",
     "xhr2": "^0.2.1"
