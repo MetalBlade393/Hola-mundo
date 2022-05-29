@@ -20,7 +20,6 @@
                     <th>Email</th>
                     <th>Comentario</th>
                     <th>Fecha</th>
-                    <th>Hora</th>
                     <th>IP</th>
                     <th>Pais</th>
                   </tr>
@@ -31,10 +30,9 @@
                     <th><%= obtener.nombre%></th>
                     <td><%= obtener.email%></td>
                     <td><%= obtener.comentario%></td>
-                    <td><%= clientData.date%></td>
-                    <td><%= clientData.hour%></td>
-                    <td><%= clientData.ipaddress%></td>
-                    <td><%= clientData.country%></td>
+                    <td><%= obtener.fecha%></td>
+                    <td><%= obtener.ip%></td>
+                    <td><%= obtener.pais%></td>
                   </tr>
                   <% } %>
                 </tbody>

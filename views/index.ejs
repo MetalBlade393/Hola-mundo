@@ -6,13 +6,15 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>.</title>
      <link rel='stylesheet' href='/stylesheets/style.css'>
-     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-     <script src="/javascripts/verificacion.js"></script>
+     <script src="https://www.google.com/recaptcha/api.js"></script>
+     <!-- Global site tag (gtag.js) - Google Analytics -->
+     <script async src="https://www.googletagmanager.com/gtag/js?id=<%= process.env.ID_ANALYTICS%>"></script>
      <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '<%=ID_ANALYTICS%>');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '<%= process.env.ID_ANALYTICS%>');
      </script>
   </head>
   <body>
@@ -68,7 +70,7 @@
              </ul>
          </fieldset>
      </div>
-     <form class="form" action="/" method="POST">
+     <form class="form" action="/" method="POST" id="EnvioFormulario">
          <div class="form__container">
              <h2 class="form__title">Contactame</h2>
              <div>
@@ -83,26 +85,36 @@
                <label for="comentario">Comentario</label>
                <input name="comentario" id="comentario" class="form__input form__input--message" placeholder="Dejenos su comentario..." value="<%= tarea.comentario%>">
              </div>
-             <div class="g-recaptcha" data-sitekey="6LcoeOofAAAAANTdyTb3jOlERCw15Kx_1CTObvF3">
+             <div class="g-recaptcha" data-sitekey= "<%= process.env.KEY_PUBLIC %>">
              </div>
 
-             <button type="submit" id="EnvioFormulario" onclick="vf()" class="form__cta">Enviar mensaje</button>
+             <button type="submit" class="form__cta">Enviar mensaje</button>
              <input type="hidden" name="ip" value="<%= tarea.ip%>"/>
-             <input type="hidden" name="date" value="<%= get.date%>">
-             <input type="hidden" name="hour" value="<%= get.hour%>">
-             <input type="hidden" name="country" value="<%= get.country%>">
+             <input type="hidden" name="fecha" value="<%= tarea.fecha%>">
              <span class="fa fa-phone">0426-6497560</span>
              <span class="fa fa-envelope-o">javierantoniolealpino@gmail.com</span>
          </div>
      <form>
-     <div class="verificacion-captcha" id="verify_great" style="width:336px;">
-         <p style="position:relative; left:31px; top:1px;">Su mensaje se ha enviado correctamente!</p>
-         <img src="/images/sucess.png" class="sucess" style="height:30px; position:relative; top:-41px; left:-2px;">
-     </div>
-     <div class="verificacion-captcha great" id="verify_captcha" style="width:359px">
-        <p style="position:relative; left:25px;">¡Completa el captcha para enviar tú mensaje!</p>
-        <img src="/images/error.png" class="error" style="height:28px; position:relative; top:-39px; left:3px">
-    
-    </div>
+        <script>
+            document.getElementById("EnvioFormulario").addEventListener("submit",function(evt)
+            {
+            const response = grecaptcha.getResponse();
+            const nombre = document.getElementById('nombre')
+            const correo = document.getElementById('email')
+            const comentario = document.getElementById('comentario')
+            if(response.length == 0 || nombre.value=="" || email.value=="" || comentario.value=="") 
+            { 
+                //reCaptcha sin verificar
+                alert("Favor de rellenar todos los campos y verifique si usted es un humano."); 
+                evt.preventDefault();
+                return false;
+            } else {
+                //captcha verificado
+                alert("Ha sido verificado con exito. Datos enviados."); 
+                //do the rest of your validations here
+            }
+            });
+        </script>
   </body>
 </html>
+verificacion

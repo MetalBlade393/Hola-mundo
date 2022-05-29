@@ -3,8 +3,9 @@ const router = express.Router();
 const sqlite3=require('sqlite3').verbose();
 const path = require('path');
 const nodemailer = require('nodemailer');
-const XMLHttpRequest = require('xhr2');
+const geoip = require('geoip-lite');
 const fetch = require('node-fetch'); 
+const request = require('http');
 require('dotenv').config()
 
 const basededatos=path.join(__dirname,"data","formcontacts.db");
@@ -17,7 +18,7 @@ if (err){
 })
 
 
-const create="CREATE TABLE IF NOT EXISTS contactos(email VARCHAR(20),nombre VARCHAR(20), comentario TEXT, date DATATIME, hour VARCHAR(20),ipaddress TEXT, country VARCHAR(20));";
+const create="CREATE TABLE IF NOT EXISTS contactos(email VARCHAR(20),nombre VARCHAR(20), comentario TEXT, fecha DATATIME, ip TEXT, pais VARCHAR(20));";
 
 bd.run(create,err=>{
 	if (err){
@@ -39,122 +40,99 @@ router.get('/contactos',(req,res)=>{
 	})
 })
 
+
 //Envio POST del Formulario.
-router.post('/',(req,res)=>{
-	const name = req.body.name;
-  	const response_key_RV = req.body["g-recaptcha-response"];
-  	const secret_key_RV = process.env.KEY_PRIVATE;
-  	const url = 
-	`https://www.google.com/recaptcha/api/siteverify?secret=${secret_key_RV}&response=${response_key_RV}`;
-  	fetch(url, {
-    	method: "post",
-  	})
-    	.then((response) => response.json())
-    	.then((google_response) => {
-	//Si se verifica el captcha, automaticamente se hace envia los datos a la Base de Datos
-      	if (google_response.success == true) {
-        	//Obtener la fecha/hora
-  			let dateRV_30406581 = new Date();
-  			let hoursRV = dateRV_30406581.getHours();
-  			let minutesRV = dateRV_30406581.getMinutes();
-  			let secondsRV = dateRV_30406581.getSeconds();
-			//Reconversión a 12 horas.
-  			let formatRV = hoursRV >= 12 ? 'PM' : 'AM'; 
-  			hoursRV = hoursRV % 12; 
-  			hoursRV = hoursRV ? hoursRV : 12; 
-  			minutesRV = minutesRV < 10 ? '0' + minutesRV : minutesRV;
-  			let timeToday = hoursRV + ':' + minutesRV + ':' + secondsRV + ' ' + formatRV; //=> Hora
-  			let todayDate = dateRV_30406581.getDate() + '-' + ( dateRV_30406581.getMonth() + 1 ) + '-' + dateRV_30406581.getFullYear(); //=> Fecha
-			//////////////Obtener la IP publica////////////////
-			let ipRV = req.headers["x-forwarded-for"];
-  			if (ipRV){
-    			let list = ipRV.split(",");
-    			ipRV = list[list.length-1];
- 			} else {
-				ipRV = req.connection.remoteAddress;
-  			}
-			////////////Obtener el Pais//////////////
-			let XMLHttp = new XMLHttpRequest();
-			XMLHttp.onreadystatechange = function(){
-			if(this.readyState == 4 && this.status == 200) {
-				let ipwhois = JSON.parse(this.responseText); 
-				let country = ipwhois.country 
-				let countryCode = ipwhois.country_code
-				let clientCountry = country + '(' + countryCode + ')'
-			//Obtener los datos que ingresa el usuario
-				let email = req.body.email
-				let nombre = req.body.nombre
-				let comentario = req.body.comentario
-			//Ingreso de los registros hacia la Base de Datos
-				const sqlCreateRecords="INSERT INTO Contactos(email,nombre,comentario,date,hour,ipaddress,country) VALUES (?,?,?,?,?,?,?)";
-				const clientData=[email,nombre,comentario,todayDate,timeToday,ipRV,clientCountry];
-				dbAdmin.run(sqlCreateRecords, clientData, err =>{
-				if (err){
-					return console.error(err.message); //=> Si existe un error retorna el error
-				}
-				else{
-					setTimeout(function(){ //=>  Temporizador para mostrar el mensaje e ingresar a la ruta
-						res.redirect("/"); //=>  Si no existe algún error,el mensaje se envia.
-					}, 1800);
-					}
-				})
+router.post('/', (req,res)=>{
+	const response_key = req.body["g-recaptcha-response"];
+	const secret_key = process.env.KEY_PRIVATE;
+	const url = 
+  `https://www.google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${response_key}`;
+	fetch(url, {
+	  method: "POST",
+	})
+	  .then((response) => response.json())
+	  .then((google_response) => {
+  //Si se verifica el captcha
+		if (google_response.success == true) {
+		  var hoy = new Date();
+			var horas = hoy.getHours();
+			var minutos = hoy.getMinutes();
+		  minutos = minutos < 10 ? '0' + minutos : minutos;
+			var segundos = hoy.getSeconds();
+			var hora = horas + ':' + minutos + ':' + segundos + ' ';
+			var fecha = hoy.getDate() + '-' + ( hoy.getMonth() + 1 ) + '-' + hoy.getFullYear() + '//' + hora;
+			var ip = req.headers["x-forwarded-for"];
+			if (ip){
+		  var list = ip.split(",");
+		  ip= list[list.length-1];
+			} else {
+			ip = req.connection.remoteAddress;
+			}
+		  var geo = geoip.lookup(ip);
+		  console.log(geo);
+		  var pais = geo.country;
+		  const sql="INSERT INTO contactos(nombre, email, comentario, fecha ,ip, pais) VALUES (?,?,?,?,?,?)";
+		  const nuevos_mensajes=[req.body.nombre, req.body.email, req.body.comentario,fecha,ip,pais];
 
-		//Conexion al servidor del correo electronico
-			let transporter = nodemailer.createTransport({
-			host: "smtp-mail.outlook.com",
-    			secureConnection: false,
-    			port: 587, 
-    			tls: {
-       				ciphers:'SSLv3'
-    			},
-				auth: {
-					user: process.env.EMAIL,
-					pass: process.env.PASS
-				}
-			});
-				const customerMessage = `
-					<p>Programacion P2</p>
-					<h3>Información del Cliente/Contacto:</h3>
-					<ul>
-			  		<li>Email: ${email}</li>
-			  		<li>Nombre: ${nombre}</li>
-			  		<li>Comentario: ${comentario}</li>
-			  		<li>Fecha: ${todayDate}</li>
-					<li>Hora: ${timeToday}</li>
-					<li>IP: ${ipRV}</li>
-					<li>Pais: ${clientCountry}</li>
-					</ul>`;
 
-				const receiverAndTransmitter = {
-					from: process.env.EMAIL,
-					to: 'joseleonmb393@gmail.com',
-					subject: 'Informacion del Contacto', 
-					html: customerMessage
-				};
-				transporter.sendMail(receiverAndTransmitter,(err, info) => {
-					if(err)
-						console.log(err)
-					else
-						console.log(info);
-					})
-				}
-			}; //=> Llave qué cierra el "if" para obtener el pais.
-	//Obtener el Pais desde la API con la IP.
-	XMLHttp.open('GET', 'https://ipwho.is/' + ipRV, true); //"Variable "ipRV" => IP Publica arriba.
-	XMLHttp.send();
-    }else{
-	//Si hay error en el reCaptcha se recarga la pagina y muestra el mensaje de JS:)
-        setTimeout(function(){ //=>  Temporizador para mostrar el mensaje e ingresar a la ruta
-			res.redirect("/");				
-		}, 1800);
-    }
-    })
-	//Errores de syntaxis en el Recaptcha
-    .catch((error) => {
-    return res.json({ error });
-    });
-})
+		  bd.run(sql, nuevos_mensajes, err =>{
+			  if (err){
+				  return console.error(err.message);
+			  }
+			  else{
+			  res.redirect("/");
+			  }
+			  })
 
+			  const transporter = nodemailer.createTransport({
+				  host: 'smtp-mail.outlook.com',
+				  secureConnection: false, 
+				  port: 587, 
+				  auth: {
+					  user: process.env.EMAIL,
+					  pass: process.env.PASS
+				  	},
+					  tls: {
+						rejectUnauthorized: false,
+						ciphers:'SSLv3'
+					 }
+		  });
+			  const Message = `
+				  <p>Programacion 2, Seccion 1</p>
+				  <h3>Información del contacto:</h3>
+				  <ul>
+					<li>E-mail: ${req.body.email}</li>
+					<li>Nombre: ${req.body.nombre}</li>
+					<li>Comentario: ${req.body.comentario}</li>
+					<li>Fecha-Hora: ${fecha}</li>
+				  <li>IP: ${ip}</li>
+				  <li>Pais: ${pais}</li>
+				  </ul>`;
+			  const receiverAndTransmitter = {
+				  from: process.env.EMAIL,
+				  to: 'programacion2ais@dispostable.com',
+				  subject: 'Informacion del Contacto', 
+				  html: Message
+			  };
+			  transporter.sendMail(receiverAndTransmitter,(err, info) => {
+				  if(err)
+					  console.log(err)
+				  else
+					  console.log(info);
+				  })
+  }else{
+  //Si hay error en el captcha 
+	  setTimeout(function(){ 
+		  res.redirect("/");				
+	  }, 1800);
+  }
+  })
+  .catch((error) => {
+  return res.json({ error });
+  });
+	
+
+});
 
 router.get('/',(req,res)=>{
 	res.render('index.ejs',{tarea:{}})
