@@ -1,0 +1,176 @@
+/*Cuerpo de la pagina*/
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family:monospace;
+}
+body{
+    background-image: linear-gradient(45deg, #80373d 10%, #5b3f9b 80%, #5b7ab4 90%);
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+}
+main{
+    width: 100%;
+    padding: 20px;
+    margin: auto;
+    margin-top: 100px;
+}
+.all__content{
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    position: relative;
+}
+
+/*Diseño de la caja trasera*/
+
+.back__box{
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    backdrop-filter: blur(25px);
+    background-color: rgb(91, 122, 180, 0.5);
+}
+.back__box div{
+    margin: 100px;
+    color:white;
+    transition: all 500ms;
+}
+.back__box div p{
+    margin-top: 15px;
+}
+.back__box div h3{
+    font-weight: 400;
+    font-size: 26px;
+}
+.back__box a{
+    padding: 10px 40px;
+    border: 2px solid rgb(127, 127, 184);
+    border-radius: 15px;
+    background: transparent;
+    align-items: center;
+	justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    color: rgb(127, 127, 184);
+    outline: none;
+}
+.back__box a:hover{
+    transition: all 300ms;
+    background: rgb(127, 127, 184);
+    color: white;
+    font-weight: bold;
+}
+
+/*Diseño del formulario*/
+
+.lgn__container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    margin-top: -220px;
+    left: 10px;
+}
+.lgn__container form{
+    width: 100%;
+    padding: 80px 20px;
+    background: white;
+    position: absolute;
+    border-radius: 20px;
+}
+.lgn__container form h2{
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgb(57, 104, 231);
+}
+.lgn__container form input{
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: none;
+    background: rgb(235, 235, 235);
+    outline: none;
+}
+.lgn__container form button{
+    padding: 10px 40px;
+    border: 2px solid rgb(57, 104, 231);
+    border-radius: 15px;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    color: rgb(57, 104, 231);
+    outline: none;
+    margin-top: 20px;
+}
+.lgn__container form button:hover{
+    transition: all 300ms;
+    background: rgb(57, 104, 231);
+    color: white;
+}
+.form__login{
+    opacity: 1;
+    display: block;
+}
+.form__register{
+    display: none;
+}
+.Oauth__Autentication {
+	margin: 1px 0;
+	margin-bottom: 0;
+}
+.Oauth__Autentication a {
+	display:flex;
+    border: 2px solid rgb(57, 104, 231);
+	border-radius: 15px;
+	flex-direction: column;
+	height: 40px;
+	width: 200px;
+	align-items: center;
+	justify-content: center;
+	margin:33px 0px;
+	font-weight: bold;
+
+}
+.Oauth__Autentication a:hover{
+	transition: 300ms;
+	background-color: rgb(57, 104, 231);
+	color:white;
+	font-weight: bold;
+}
+
+/*Responsive Design*/
+
+@media screen and (max-widht: 850px){
+    main{
+        margin-top: 50px;
+    }
+    .back__box{
+        max-width: 350px;
+        height: 300px;
+        flex-direction: column;
+        margin: auto;
+    }
+    .back__box div{
+        margin: 0px;
+        position: absolute;
+    }
+    .lgn-n-rgst__container{
+        top: -10px;
+        left: -5px;
+        margin: auto;
+    }
+    .lgn-n-rgst__container form{
+        position: relative;
+    }
+}

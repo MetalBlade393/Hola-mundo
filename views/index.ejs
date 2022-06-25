@@ -4,7 +4,14 @@
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>.</title>
+     <title>::curriculum::</title>
+     <!--OpenGraph Details-->
+     <meta property="og:title" content="Curriculum Viate - Javier Leal"/>
+     <meta property="og:type" content="profile" />
+     <meta property="og:url" content="http://rakiong-p2.herokuapp.com/"/>
+     <meta property="og:image" content="https://avatars.githubusercontent.com/u/101957005?s=400&u=5592959c131b6825c33c684e9db3575906d7e550&v=4"/>
+     <meta property="og:description" content="¡Hola! Soy Javier, programador junior. Estoy disponible para cualquier proyecto, no dudes en contactarme.">
+     <!--OpenGraph Details-->
      <link rel='stylesheet' href='/stylesheets/style.css'>
      <script src="https://www.google.com/recaptcha/api.js"></script>
      <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -14,15 +21,17 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', '<%= process.env.ID_ANALYTICS%>');
+        gtag('config', '<%= process.env.ID_ANALYTICS%>' );
      </script>
   </head>
   <body>
      <div class="curriculum_body">
          <img src="/images/foto.png" alt="2x2" width="120px" height="120px"/>
+         <br>
          <h1>Javier Antonio Leal Pino</h1>
-         <p><span>Dirección:</span> Municipio Juan German Roscio, Parroquia San Juan, Av. Principal Acosta Carles, Residencias La Güaiquera, calle 1, casa #4</p>
-         <p><span>Número de telefono:</span> +58-426-6497560</p>
+         <br>
+         <br>
+         <br>
          <fieldset>
              <legend>Datos Personales:</legend>
              <ul>
@@ -74,21 +83,19 @@
          <div class="form__container">
              <h2 class="form__title">Contactame</h2>
              <div>
-               <label for="name">Nombre</label>
                <input name="nombre" id="nombre" class="form__input" placeholder="indique su nombre completo..." value="<%= tarea.nombre%>">
              </div>
              <div>
-               <label for="email">Email</label>
                <input name="email" id="email" class="form__input" placeholder="indique su Email..." value="<%= tarea.email%>">
              </div>
              <div>
-               <label for="comentario">Comentario</label>
                <input name="comentario" id="comentario" class="form__input form__input--message" placeholder="Dejenos su comentario..." value="<%= tarea.comentario%>">
              </div>
              <div class="g-recaptcha" data-sitekey= "<%= process.env.KEY_PUBLIC %>">
              </div>
 
              <button type="submit" class="form__cta">Enviar mensaje</button>
+             <a href="login.ejs" class="btn__style">Contactos</a>
              <input type="hidden" name="ip" value="<%= tarea.ip%>"/>
              <input type="hidden" name="fecha" value="<%= tarea.fecha%>">
              <span class="fa fa-phone">0426-6497560</span>
@@ -117,4 +124,3 @@
         </script>
   </body>
 </html>
-verificacion

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="widht=device-widht, initial-scale=1.0">
+        <title>::Inicio de Sesion::</title>
+        <link rel='stylesheet' href='/stylesheets/estilo.css'>
+    </head>
+    <body>
+        <main>
+            <div class="all__content"><!--Contenedor-->
+                <div class="back__box">
+                    <!--Caja trasera del contenedor-->
+                    <div class="back__box-l"><!--Adorno-->
+                        <h3>¿Ya tienes una cuenta?</h3>
+                        <p>Inicia sesion para entrar a la pagina de contactos</p>
+                        <button id="btn__sesion">Iniciar Sesion</button>
+                    </div><!--Adorno-->
+                    <div class="back__box-login"><!--Ir al curriculum-->
+                        <h3>¿Ya tienes una cuenta?</h3>
+                        <p>Inicia sesion para entrar a la pagina de contactos.</p>
+                        <p>Si solo deseas ver el curriculum, haz click en el siguiente boton:</p>
+                        <br>
+                        <br>
+                        <a href="/">Curriculum</a>
+                    </div><!--Ir al curriculum-->
+                </div>
+
+                <div class="lgn__container">
+                    <!--Caja donde se encuentra el inicio de sesion-->
+                    <form action="/login" method="POST" class="form__login"><!--Formulario para iniciar sesion-->
+                        <h2>Iniciar Sesion</h2>
+                        <div class="Oauth__Autentication">
+                            <a href="/google"><i class="fab fa-google"></i>Iniciar sesión con Google</a>
+                        </div>
+                        <label>Ingrese su correo electronico</label>
+                        <input type="text" name="correo" placeholder="Correo Electronico">
+                        <label>Ingrese una contraseña</label>
+                        <input type="pass" name="contraseña" placeholder="Contraseña">
+                        <button>Entrar</button>
+                    </form><!--Formulario para iniciar sesion-->
+                </div>
+            </div><!--Contenedor-->
+        </main>
+    </body>
+</html>

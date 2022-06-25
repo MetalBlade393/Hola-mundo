@@ -1,11 +1,12 @@
+/*Cuerpo de la pagina*/
+
 body{
-  background-image: linear-gradient(45deg, #43284b 10%, #5b3f9b 80%, #5b7ab4 90%);
+  background-image: linear-gradient(45deg, #80373d 10%, #5b3f9b 80%, #5b7ab4 90%);
   min-height: 100vh;
   width: 100%;
   display: flex;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
 .curriculum_body
 {
   background-color: white;
@@ -15,11 +16,15 @@ body{
   margin: 0 auto;
   border-radius: 3em;
 }
-
 fieldset
 {
   margin-bottom: 14px;
+  border-radius: 15px;
+  
 }
+
+/*Cuerpo del curriculum*/
+
 legend
 {
   background-color: #9572e7d7;
@@ -39,6 +44,8 @@ span
   font-weight: bold;
 }
 
+/*Cuerpo del formulario*/
+
 .form{
   background-color: antiquewhite;
   width: 80%;
@@ -46,66 +53,86 @@ span
   margin: auto;
   border-radius: 1em;
   padding: 1.5em 1.5em;
-  }
-  
-  .form__container{
+}
+.form__container{
       width: 100%;
       display: grid;
       gap: 1em;
       grid-auto-columns: 100%;
-  }
-  
-  .form__title{
+}
+.form__title{
       text-align: center;
       font-size: 1.9rem;
       margin-bottom: .4em;
-  }
-  
-  .form__input{
-      font-family: inherit;
-      font-size: 1rem;
-      padding: .8em 1em;
-      outline: none;
-      border: none;
-      border: 1px solid #ebba71;
-      border-radius: 0.2em;
-  }
-  
-  .form__input--message{
-      resize: none;
-      padding: 1.8em 1em;
-      margin-bottom: .5em;
-  }
-  
-  .form__cta{
-      font-family: inherit;
-      font-size: 1rem;
-      background-color: rgb(243, 241, 240);
-      border-color: #ebba71;
-      font-weight: 300;
-      padding: .7em 0;
-      border-radius: .2em;
-      cursor: pointer;
-      font-weight: 400;
-  }
-
-  .form__contacts{
+}
+.form__input{
+  width: 80%;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 10px;
+  outline: none;
+  border: none;
+  border: 1px solid #ebba71;
+  border-radius: 0.2em;
+}  
+.form__input--message{
+  width: 80%;
+  resize: none;
+  padding: 10px;
+  margin-bottom: .5em;
+}
+.form__cta{
+  padding: .7em 0;
+  border: 2px solid rgb(223, 107, 29);
+  border-radius: 15px;
+  background:transparent;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+  color: rgb(223, 107, 29);
+  outline: none;
+}
+.form__cta:hover{
+  transition: all 300ms;
+  background: rgb(223, 107, 29);
+  color: white;
+}
+.form__contacts{
     background-color: antiquewhite;
     width: 80%;
     max-width: 2900px;
     margin: auto;
     border-radius: 1em;
     padding: 6.5em 6.5em;
-    }
-
-    .form__title2{
+}
+.form__title2{
       text-align: center;
       font-size: 1.9rem;
       margin-bottom: .1em;
-  }
-
-  @media (max-width:450px){
+}
+@media (max-width:450px){
       .form{
           padding: 3.5em 1em;
       }
-  }
+}
+
+/*Otros detalles*/
+.btn__style{
+  padding: 10px 40px;
+  border: 2px solid rgb(223, 107, 29);
+  border-radius: 15px;
+  background: transparent;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  color: rgb(223, 107, 29);
+  outline: none;
+  margin-top: 20px;
+}
+.btn__style:hover{
+  transition: all 300ms;
+  background: rgb(223, 107, 29);
+  color: white;
+}
