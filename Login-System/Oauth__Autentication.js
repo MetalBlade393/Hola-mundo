@@ -5,7 +5,7 @@ const emails = [process.env.ADMIN_EMAIL_GOOGLE];
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://task4-30463851.herokuapp.com/google/callback"
+    callbackURL: "https://curriculum-n-login.herokuapp.com/google/callback"
 }, function(accessToken, refreshToken, profile, done){
     const response = emails.includes(profile.emails[0].value);
     if(response){
